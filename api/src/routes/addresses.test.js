@@ -30,9 +30,7 @@ describe('Addresses Unit Tests', () => {
             chain_stats: {
               tx_count: 2,
               spent_txo_sum: 3,
-              funded_txo_sum: 4,
-              spent_txo_sum: 5,
-              funded_txo_sum: 6
+              funded_txo_sum: 5
             }
           })
         })
@@ -201,9 +199,9 @@ describe('Addresses Unit Tests', () => {
               data: {
                 id: 'test-address-id',
                 balance: 'BTC-1',
-                spent: 'BTC-5',
+                spent: 'BTC-3',
                 transactions: 2,
-                received: 'BTC-6',
+                received: 'BTC-5',
                 unspent: 'BTC-1'
               }
             })
@@ -263,9 +261,9 @@ describe('Addresses Unit Tests', () => {
               data: {
                 id: 'test-address-id',
                 balance: 'BTC-1',
-                spent: 'BTC-5',
+                spent: 'BTC-3',
                 transactions: 2,
-                received: 'BTC-6',
+                received: 'BTC-5',
                 unspent: 'BTC-1'
               }
             })
@@ -332,9 +330,9 @@ describe('Addresses Unit Tests', () => {
               data: {
                 id: 'test-address-id',
                 balance: 'USD-1',
-                spent: 'USD-5',
+                spent: 'USD-3',
                 transactions: 2,
-                received: 'USD-6',
+                received: 'USD-5',
                 unspent: 'USD-1'
               }
             })

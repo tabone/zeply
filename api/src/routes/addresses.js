@@ -57,7 +57,8 @@ module.exports = {
           balance: rates.to(
             currency,
             address.chain_stats.funded_txo_sum -
-              address.chain_stats.spent_txo_sum
+              address.chain_stats.spent_txo_sum -
+              address.mempool_stats.spent_txo_sum
           )
         }
       })
