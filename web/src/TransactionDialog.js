@@ -86,7 +86,7 @@ function TransactionDialog(props) {
   const titleDOM = React.useMemo(() => {
     return (
       <>
-        <Typography component="span">Transaction {labelID}</Typography>{' '}
+        Transaction {labelID}{' '}
         <EntitySubscribe
           entityID={entityID}
           entityType={entityTypes.TRANSACTION}

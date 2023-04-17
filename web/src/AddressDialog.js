@@ -76,7 +76,7 @@ function AddressDialog(props) {
   const titleDOM = React.useMemo(() => {
     return (
       <>
-        <Typography component="span">Address {labelID}</Typography>{' '}
+        Address {labelID}{' '}
         <EntitySubscribe entityID={entityID} entityType={entityTypes.ADDRESS} />
       </>
     )

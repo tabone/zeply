@@ -18,7 +18,11 @@ This service deploys a PostgreSQL database using the Dockerfile located in the `
 
 ## `api`
 
-This service deploys an ExpressJS REST API using the Dockerfile located in the `./api` directory. This API has the following endpoints:
+This service deploys an ExpressJS REST API using the Dockerfile located in the `./api` directory.
+
+> `npm test` to execute to unit tests.
+
+This API has the following endpoints:
 
 ### HTTP GET /health
 
@@ -49,6 +53,8 @@ Retrieves information about a BTC Transaction.
 ## web
 
 This service deploys a ReactJS FE application using the Dockerfile located in the `./web` directory. This container requires the `REACT_APP_API` environment variable. This is used by the ReactJS FE application to connect with th `api` service.
+
+> `npm test` to execute to unit tests.
 
 This FE Application has the following features:
 
