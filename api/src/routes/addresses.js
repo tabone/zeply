@@ -54,10 +54,10 @@ module.exports = {
           transactions: address.chain_stats.tx_count,
           unspent: rates.to(currency, address.mempool_stats.spent_txo_sum),
 
-          balance: Math.max(
-            0,
-            rates.to(
-              currency,
+          balance: rates.to(
+            currency,
+            Math.max(
+              0,
               address.chain_stats.funded_txo_sum -
                 address.chain_stats.spent_txo_sum -
                 address.mempool_stats.spent_txo_sum
