@@ -15,7 +15,6 @@ import EntityLink from './EntityLink'
 import EntitySubscribe from './EntitySubscribe'
 
 import noDataImage from './assets/no-data.png'
-
 import entityTypes from './data/entity-types'
 
 PopularEntities.propTypes = {

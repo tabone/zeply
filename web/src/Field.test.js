@@ -11,7 +11,7 @@ describe('<Field /> Unit Tests', () => {
         render(<Field label="test-label">test-value</Field>)
       })
 
-      it('should <Field /> with a value', () => {
+      it('should render label-value pair', () => {
         expect(screen.getByLabelText('test-label')).toHaveTextContent(
           'test-value'
         )

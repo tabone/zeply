@@ -20,18 +20,20 @@ function EntityLink(props) {
   const { onEntityChange } = React.useContext(AppContext)
 
   const onClick = React.useCallback(() => {
-    if (entityID == null || Object.values(entityTypes).includes(type) === false)
+    if (
+      entityID == null ||
+      Object.values(entityTypes).includes(type) === false
+    ) {
       return
+    }
 
     onEntityChange({ id: entityID, type })
   }, [entityID, type, onEntityChange])
 
-  const label = React.useMemo(() => {
-    return truncateEntityID(entityID)
-  }, [entityID])
+  const label = React.useMemo(() => truncateEntityID(entityID), [entityID])
 
   return (
-    <Link component={Button} onClick={onClick}>
+    <Link component={Button} onClick={onClick} title={entityID}>
       {label}
     </Link>
   )

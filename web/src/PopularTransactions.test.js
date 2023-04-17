@@ -54,7 +54,7 @@ describe('<PopularTransactions /> Unit Tests', () => {
   })
 
   describe('Rendering <PopularTransactions /> when there is search history data', () => {
-    describe('When rendering the <PopularTransactions /> when there is no search history data', () => {
+    describe('When rendering the <PopularTransactions /> when there is search history data', () => {
       beforeEach(async () => {
         apiMock.onGet('/reports/popular-transactions').reply(200, {
           data: [

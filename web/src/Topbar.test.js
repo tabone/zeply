@@ -11,11 +11,19 @@ import AppContext from './AppContext'
 
 import { actions as ratesActions } from './store/rates'
 
-describe('<BTC /> Unit Tests', () => {
+describe('<Topbar /> Unit Tests', () => {
   describe('Rendering the <Topbar />', () => {
     describe('When rendering the <Topbar />', () => {
       beforeEach(() => {
         renderComponent()
+      })
+
+      it('should display the correct heading', () => {
+        expect(
+          screen.getByRole('heading', {
+            name: 'Zeply'
+          })
+        ).toBeInTheDocument()
       })
 
       it('should inform the user with the current selected currency', () => {

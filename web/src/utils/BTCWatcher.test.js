@@ -171,7 +171,7 @@ describe('BTCWatcher Unit Tests', () => {
     })
   })
 
-  describe('Receiving an updates for subscribed BTC Transaction', () => {
+  describe('Receiving updates for subscribed BTC Transaction', () => {
     describe('Given a BTCWatcher', () => {
       let watcher = null
       let onMessage = null
@@ -228,7 +228,7 @@ describe('BTCWatcher Unit Tests', () => {
             )
           })
 
-          it('should inform the user that a BTC Address has been updated', () => {
+          it('should inform the user that a BTC Transaction they has subscribed to has been updated', () => {
             expect(onMessage.mock.calls[1][0]).toBe(
               'Transaction test-trx-one has been updated!'
             )

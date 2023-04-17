@@ -15,9 +15,7 @@ function BTC(props) {
 
   const { currency } = React.useContext(AppContext)
 
-  const { rates } = useSelector(({ rates }) => {
-    return { rates }
-  })
+  const rates = useSelector(({ rates }) => rates)
 
   const { dp, symbol, rate } = React.useMemo(() => {
     return {

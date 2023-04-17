@@ -18,8 +18,8 @@ import homeBG from './assets/home-bg.png'
 import entityTypes from './data/entity-types'
 
 const TRANSACTION_ID_PATTERN = /^[a-fA-F0-9]{64}$/
-const ADDRESS_ONE_ID_PATTERN = /^bc1[0-9A-Za-z]{8,87}$/
-const ADDRESS_TWO_ID_PATTERN = /^(1|3)[1-9A-HJ-NP-Za-km-z]{25,34}$/
+const ADDRESS_P2WPKH_ID_PATTERN = /^bc1[0-9A-Za-z]{8,87}$/
+const ADDRESS_P2PKH_ID_PATTERN = /^(1|3)[1-9A-HJ-NP-Za-km-z]{25,34}$/
 
 function HomeSearch() {
   const { onEntityChange } = React.useContext(AppContext)
@@ -58,8 +58,8 @@ function HomeSearch() {
   const onSubmit = React.useCallback(() => {
     if (
       type === entityTypes.ADDRESS &&
-      ADDRESS_ONE_ID_PATTERN.test(search) === false &&
-      ADDRESS_TWO_ID_PATTERN.test(search) === false
+      ADDRESS_P2PKH_ID_PATTERN.test(search) === false &&
+      ADDRESS_P2WPKH_ID_PATTERN.test(search) === false
     ) {
       setSearchErrorMessage(
         "Sorry, we couldn't recognize the BTC address you entered. Please verify that it is correct and try again."
@@ -114,14 +114,12 @@ function HomeSearch() {
         flexDirection="column">
         <TextField
           fullWidth
-          inputProps={{
-            'aria-labelledby': searchID
-          }}
           value={search}
           variant="outlined"
           onChange={onSearchChange}
           placeholder={searchPlaceholder}
           error={searchErrorMessage != null}
+          inputProps={{ 'aria-labelledby': searchID }}
           size={isSmallViewport === true ? 'small' : 'medium'}
         />
 

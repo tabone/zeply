@@ -15,7 +15,7 @@ describe('<Date /> Unit Tests', () => {
         renderComponent(date.getTime())
       })
 
-      it('should <Date /> with a value', () => {
+      it('should render the correct date in the DOM', () => {
         expect(screen.getByLabelText('test-date')).toHaveTextContent(
           '04/02/2022'
         )
@@ -29,7 +29,7 @@ describe('<Date /> Unit Tests', () => {
         renderComponent()
       })
 
-      it('should <Date /> with a value', () => {
+      it('should not render anything', () => {
         expect(screen.getByLabelText('test-date')).toHaveTextContent('')
       })
     })

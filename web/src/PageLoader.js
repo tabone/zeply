@@ -23,8 +23,8 @@ function PageLoader(props) {
       display="flex"
       alignItems="center"
       position="absolute"
-      justifyContent="center"
-      flexDirection="column">
+      flexDirection="column"
+      justifyContent="center">
       <Typography>{message}</Typography>
 
       <img src={loadingImage} alt="Loading..." />

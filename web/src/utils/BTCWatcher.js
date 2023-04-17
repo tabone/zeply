@@ -12,9 +12,9 @@ export default class BTCWatcher extends EventEmitter {
     this._intervalID = null
     this._ws = new window.WebSocket('wss://ws.blockchain.info/inv')
 
-    this._ws.addEventListener('open', () => this.emit('open'))
-
     this._ws.addEventListener('open', () => {
+      this.emit('open')
+
       this._ws.send(JSON.stringify({ op: 'blocks_sub' }))
 
       this._intervalID = window.setInterval(() => {
@@ -30,9 +30,7 @@ export default class BTCWatcher extends EventEmitter {
       this.destroy()
     })
 
-    this._ws.addEventListener('close', () => {
-      this.destroy()
-    })
+    this._ws.addEventListener('close', () => this.destroy())
 
     this._ws.addEventListener('message', (ev) => {
       const { op, x: payload } = JSON.parse(ev.data)

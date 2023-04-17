@@ -18,9 +18,9 @@ function Loading(props) {
       p={2}
       gap={2}
       display="flex"
+      alignItems="center"
       flexDirection="column"
-      justifyContent="center"
-      alignItems="center">
+      justifyContent="center">
       <img src={loadingImage} alt="Loading..." />
       <Typography>{message}</Typography>
     </Box>

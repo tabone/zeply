@@ -69,12 +69,10 @@ describe('<EntitySubscribe /> Unit Tests', () => {
       let toggleSubscription = null
 
       beforeEach(() => {
-        const info = renderComponent({
+        toggleSubscription = renderComponent({
           entityID: 'test-addr-entity-three',
           entityType: entityTypes.ADDRESS
-        })
-
-        toggleSubscription = info.toggleSubscription
+        }).toggleSubscription
       })
 
       describe('when clicking to subscribe', () => {
@@ -90,6 +88,11 @@ describe('<EntitySubscribe /> Unit Tests', () => {
 
         it('should attempt to subscribe the entity', () => {
           expect(toggleSubscription).toHaveBeenCalledTimes(1)
+
+          expect(toggleSubscription).toHaveBeenCalledWith(
+            'test-addr-entity-three',
+            entityTypes.ADDRESS
+          )
         })
       })
     })
@@ -100,12 +103,10 @@ describe('<EntitySubscribe /> Unit Tests', () => {
       let toggleSubscription = null
 
       beforeEach(() => {
-        const info = renderComponent({
+        toggleSubscription = renderComponent({
           entityID: 'test-addr-entity-two',
           entityType: entityTypes.ADDRESS
-        })
-
-        toggleSubscription = info.toggleSubscription
+        }).toggleSubscription
       })
 
       describe('when clicking to unsubscribe', () => {
@@ -121,6 +122,11 @@ describe('<EntitySubscribe /> Unit Tests', () => {
 
         it('should attempt to unsubscribe the entity', () => {
           expect(toggleSubscription).toHaveBeenCalledTimes(1)
+
+          expect(toggleSubscription).toHaveBeenCalledWith(
+            'test-addr-entity-two',
+            entityTypes.ADDRESS
+          )
         })
       })
     })

@@ -13,7 +13,8 @@ ENV REACT_APP_API="http://localhost:8080"
 
 RUN npm install -g serve
 RUN npm install --omit=dev
+RUN npm run build
 
-CMD npm run build && serve -s ./build -p 8080
+CMD serve -s ./build -p 8080
 
 EXPOSE 8080

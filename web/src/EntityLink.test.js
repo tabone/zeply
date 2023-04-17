@@ -21,10 +21,16 @@ describe('<EntityLink /> Unit Tests', () => {
         renderComponent({ entityID, entityType: entityTypes.ADDRESS })
       })
 
-      it('should show render the ID of the Entity', () => {
+      it('should render a truncated version of the Entitys ID', () => {
         expect(
           screen.getByRole('button', { name: '737d8a96 ... cb1cb894' })
         ).toHaveTextContent('737d8a96 ... cb1cb894')
+      })
+
+      it('should show the whole Entity ID in a tooltip', () => {
+        expect(
+          screen.getByRole('button', { name: '737d8a96 ... cb1cb894' })
+        ).toHaveAttribute('title', entityID)
       })
     })
   })
@@ -49,11 +55,11 @@ describe('<EntityLink /> Unit Tests', () => {
 
       beforeEach(() => {
         type = entityTypes.ADDRESS
+
         entityID =
           '737d8a96288d4e8905f076430c6387c8551b9707a53cbb3f2f8099fdcb1cb894'
 
-        const info = renderComponent({ entityID, type })
-        onEntityChange = info.onEntityChange
+        onEntityChange = renderComponent({ entityID, type }).onEntityChange
       })
 
       describe('when clicking on the <EntityLink />', () => {
@@ -84,8 +90,8 @@ describe('<EntityLink /> Unit Tests', () => {
       beforeEach(() => {
         entityID =
           '737d8a96288d4e8905f076430c6387c8551b9707a53cbb3f2f8099fdcb1cb894'
-        const info = renderComponent({ entityID })
-        onEntityChange = info.onEntityChange
+
+        onEntityChange = renderComponent({ entityID }).onEntityChange
       })
 
       describe('when clicking on the <EntityLink />', () => {

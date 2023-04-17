@@ -10,6 +10,8 @@ import {
   operations as popularAddressesOperations
 } from './store/popular-addresses'
 
+import entityTypes from './data/entity-types'
+
 function PopularAddresses() {
   const dispatch = useDispatch()
   const [isLoading, setLoading] = React.useState(true)
@@ -22,23 +24,15 @@ function PopularAddresses() {
         console.error(err)
         enqueueSnackbar(
           'An error occured while retrieving the popular addresses',
-          {
-            variant: 'error'
-          }
+          { variant: 'error' }
         )
       })
-      .then(() => {
-        setLoading(false)
-      })
+      .then(() => setLoading(false))
 
-    return () => {
-      dispatch(popularAddressesActions.remove())
-    }
+    return () => dispatch(popularAddressesActions.remove())
   }, [dispatch])
 
-  const addresses = useSelector(({ popularAddresses }) => {
-    return popularAddresses
-  })
+  const addresses = useSelector(({ popularAddresses }) => popularAddresses)
 
   const records = React.useMemo(() => {
     return addresses
@@ -61,8 +55,8 @@ function PopularAddresses() {
     <PopularEntities
       records={records}
       loading={isLoading}
-      entityType="address"
       title="Popular Addresses"
+      entityType={entityTypes.ADDRESS}
     />
   )
 }

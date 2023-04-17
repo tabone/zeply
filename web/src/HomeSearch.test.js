@@ -78,7 +78,8 @@ describe('<HomeSearch /> Unit Tests', () => {
       })
     })
   })
-  describe('Searching with an valid BTC Address', () => {
+
+  describe('Searching with an valid P2PKH BTC Address', () => {
     describe('Given a <HomeSearch /> component', () => {
       let onEntityChange = null
 
@@ -87,12 +88,12 @@ describe('<HomeSearch /> Unit Tests', () => {
         onEntityChange = info.onEntityChange
       })
 
-      describe('when searching with an valid BTC Address', () => {
+      describe('when searching with an valid P2PKH BTC Address', () => {
         beforeEach(async () => {
           await act(() =>
             userEvent.type(
               screen.getByRole('textbox', { name: 'SEARCH' }),
-              '1PEHY61v7zxsCRYTMr5CBhRQ7U7WwRny1z'
+              '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2'
             )
           )
 
@@ -109,7 +110,45 @@ describe('<HomeSearch /> Unit Tests', () => {
           expect(onEntityChange).toHaveBeenCalledTimes(1)
           expect(onEntityChange.mock.calls[0][0]).toEqual({
             type: entityTypes.ADDRESS,
-            id: '1PEHY61v7zxsCRYTMr5CBhRQ7U7WwRny1z'
+            id: '1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2'
+          })
+        })
+      })
+    })
+  })
+
+  describe('Searching with an valid P2WPKH BTC Address', () => {
+    describe('Given a <HomeSearch /> component', () => {
+      let onEntityChange = null
+
+      beforeEach(() => {
+        const info = renderComponent()
+        onEntityChange = info.onEntityChange
+      })
+
+      describe('when searching with an valid P2WPKH BTC Address', () => {
+        beforeEach(async () => {
+          await act(() =>
+            userEvent.type(
+              screen.getByRole('textbox', { name: 'SEARCH' }),
+              'bc1q2npx7vht0zdj94qh7eeu8l8v75euv39jytcxw7'
+            )
+          )
+
+          await act(() =>
+            userEvent.click(screen.getByRole('button', { name: 'Address' }))
+          )
+
+          await act(() =>
+            userEvent.click(screen.getByRole('button', { name: 'Search' }))
+          )
+        })
+
+        it('should attempt to load the BTC Address information', () => {
+          expect(onEntityChange).toHaveBeenCalledTimes(1)
+          expect(onEntityChange.mock.calls[0][0]).toEqual({
+            type: entityTypes.ADDRESS,
+            id: 'bc1q2npx7vht0zdj94qh7eeu8l8v75euv39jytcxw7'
           })
         })
       })

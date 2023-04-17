@@ -16,9 +16,7 @@ function Topbar() {
   const currencyMenuID = React.useId()
   const currencyButtonID = React.useId()
 
-  const rates = useSelector(({ rates }) => {
-    return rates
-  })
+  const rates = useSelector(({ rates }) => rates)
 
   const onCurrencyButtonClick = React.useCallback(() => {
     setCurrencyMenuVisibility(true)
@@ -62,7 +60,7 @@ function Topbar() {
       component={Paper}
       alignItems="center"
       justifyContent="space-between">
-      <Typography variant="h6" component={'span'}>
+      <Typography variant="h6" component="h1">
         Zeply
       </Typography>
 
@@ -84,9 +82,7 @@ function Topbar() {
           open={isCurrencyMenuVisible}
           onClose={onCurrencyMenuClose}
           anchorEl={currencyButtonRef.current}
-          MenuListProps={{
-            'aria-labelledby': currencyButtonID
-          }}>
+          MenuListProps={{ 'aria-labelledby': currencyButtonID }}>
           {currenciesDOM}
         </Menu>
       </div>

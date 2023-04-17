@@ -59,7 +59,7 @@ function EntitySubscribe(props) {
       : `You are not subscribed to BTC ${type} ${entityID}`
   }, [isSubscribed, entityID, entityType, isRenderable])
 
-  const subscribeLabel = React.useMemo(() => {
+  const subscribedLabel = React.useMemo(() => {
     if (isRenderable === false) return
 
     const type = entityType.toLowerCase()
@@ -72,8 +72,9 @@ function EntitySubscribe(props) {
   return isRenderable === false ? null : (
     <IconButton
       edge="end"
-      onClick={() => toggleSubscription(entityID, entityType)}
-      aria-label={subscribeLabel}>
+      title={subscribedLabel}
+      aria-label={subscribedLabel}
+      onClick={() => toggleSubscription(entityID, entityType)}>
       {isSubscribed === true ? (
         <BookmarkOutlinedIcon aria-label={label} />
       ) : (

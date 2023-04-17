@@ -54,7 +54,7 @@ describe('<PopularAddresses /> Unit Tests', () => {
   })
 
   describe('Rendering <PopularAddresses /> when there is search history data', () => {
-    describe('When rendering the <PopularAddresses /> when there is no search history data', () => {
+    describe('When rendering the <PopularAddresses /> when there is search history data', () => {
       beforeEach(async () => {
         apiMock.onGet('/reports/popular-addresses').reply(200, {
           data: [

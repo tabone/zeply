@@ -61,7 +61,17 @@ describe('<AddressDialog /> Unit Tests', () => {
         expect(getCalls[0].url).toBe(`/addresses/${entityID}`)
       })
 
+      it('should display the expected dialog title', () => {
+        expect(
+          screen.getByRole('heading', {
+            name: 'Address test-btc-addr-id'
+          })
+        ).toBeInTheDocument()
+      })
+
       it('should display the BTC Address details accordingly', () => {
+        expect(screen.getByLabelText('ID')).toHaveTextContent(entityID)
+
         expect(screen.getByLabelText('Spent')).toHaveTextContent(
           'BTC-symbol1.0000'
         )
@@ -134,7 +144,7 @@ describe('<AddressDialog /> Unit Tests', () => {
         expect(getCalls[0].url).toBe(`/addresses/${entityID}`)
       })
 
-      it('should inform the user that the BTC address was not found', () => {
+      it('should inform the user about the error', () => {
         expect(
           screen.getByText('An error occured, please try again')
         ).toBeInTheDocument()
@@ -162,8 +172,7 @@ describe('<AddressDialog /> Unit Tests', () => {
           }
         })
 
-        const info = renderComponent({ entityID })
-        onClose = info.onClose
+        onClose = renderComponent({ entityID }).onClose
 
         await waitForElementToBeRemoved(() => {
           return screen.queryByText('Retrieving Data...')

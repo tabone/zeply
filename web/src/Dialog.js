@@ -38,8 +38,8 @@ function Dialog(props) {
 
     return (
       <Box
-        gap={2}
         p={2}
+        gap={2}
         display="flex"
         alignItems="center"
         flexDirection="column"
@@ -65,26 +65,29 @@ function Dialog(props) {
     return errorDOM != null ? errorDOM : children
   }, [errorDOM, loading, children])
 
+  const dialogTitleDOM = React.useMemo(() => {
+    return errorDOM != null || loading === true ? null : (
+      <DialogTitle>
+        {title}
+
+        <IconButton
+          onClick={onClose}
+          aria-label="Close"
+          sx={{
+            top: 8,
+            right: 8,
+            position: 'absolute',
+            color: (theme) => theme.palette.grey[500]
+          }}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
+    )
+  }, [loading, onClose, title, errorDOM])
+
   return (
     <MUIDialog open={true} onClose={onClose}>
-      {errorDOM == null && loading === false && (
-        <DialogTitle>
-          {title}
-
-          <IconButton
-            onClick={onClose}
-            aria-label="Close"
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500]
-            }}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-      )}
-
+      {dialogTitleDOM}
       <DialogContent>{dialogContentDOM}</DialogContent>
     </MUIDialog>
   )

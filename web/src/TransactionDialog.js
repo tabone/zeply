@@ -2,8 +2,10 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
-import { Grid, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { Grid, IconButton, Typography } from '@mui/material'
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined'
 
 import BTC from './BTC'
 import Date from './Date'
@@ -52,9 +54,7 @@ function TransactionDialog(props) {
       })
       .then(() => setLoading(false))
 
-    return () => {
-      dispatch(transactionsActions.remove(entityID))
-    }
+    return () => dispatch(transactionsActions.remove(entityID))
   }, [dispatch, entityID])
 
   const labelID = React.useMemo(() => {
@@ -86,7 +86,7 @@ function TransactionDialog(props) {
   const titleDOM = React.useMemo(() => {
     return (
       <>
-        Transaction {labelID}{' '}
+        <Typography component="span">Transaction {labelID}</Typography>{' '}
         <EntitySubscribe
           entityID={entityID}
           entityType={entityTypes.TRANSACTION}
@@ -102,6 +102,18 @@ function TransactionDialog(props) {
       loading={isLoading}
       errorType={errorType}>
       <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Field label="ID">
+            <Typography component="span">{labelID}</Typography>
+
+            <CopyToClipboard text={entityID}>
+              <IconButton aria-label="Copy ID" size="small">
+                <ContentCopyOutlinedIcon />
+              </IconButton>
+            </CopyToClipboard>
+          </Field>
+        </Grid>
+
         <Grid item xs={12} sm={6}>
           <Field label="Status">
             <Typography color={confirmed === true ? 'primary' : 'default'}>
@@ -128,7 +140,7 @@ function TransactionDialog(props) {
 
         <Grid item xs={12} sm={6}>
           <Field label="Size">
-            <Typography>{size}Bytes</Typography>
+            <Typography>{size} Bytes</Typography>
           </Field>
         </Grid>
 

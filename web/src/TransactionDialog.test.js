@@ -33,8 +33,8 @@ describe('<TransactionDialog /> Unit Tests', () => {
     console.error.mockRestore()
   })
 
-  describe('Rendering an <TransactionDialog /> to show the details of a BTC Transaction', () => {
-    describe('When rendering an <TransactionDialog /> to show the details of a BTC Transaction', () => {
+  describe('Rendering an <TransactionDialog /> to show the details of a confirmed BTC Transaction', () => {
+    describe('When rendering an <TransactionDialog /> to show the details of a confirmed BTC Transaction', () => {
       beforeEach(async () => {
         apiMock.onGet(`/transactions/${entityID}`).reply(200, {
           data: {
@@ -63,8 +63,17 @@ describe('<TransactionDialog /> Unit Tests', () => {
         expect(getCalls[0].url).toBe(`/transactions/${entityID}`)
       })
 
+      it('should display the expected dialog title', () => {
+        expect(
+          screen.getByRole('heading', {
+            name: 'Transaction test-btc-trx-id'
+          })
+        ).toBeInTheDocument()
+      })
+
       it('should display the BTC Transaction details accordingly', () => {
         expect(screen.getByLabelText('Size')).toHaveTextContent(1)
+        expect(screen.getByLabelText('ID')).toHaveTextContent(entityID)
         expect(screen.getByLabelText('Confirmations')).toHaveTextContent('5')
         expect(screen.getByLabelText('Status')).toHaveTextContent('CONFIRMED')
 
@@ -80,6 +89,60 @@ describe('<TransactionDialog /> Unit Tests', () => {
         expect(screen.getByLabelText('Fees')).toHaveTextContent(
           'BTC-symbol2.0000'
         )
+      })
+    })
+  })
+
+  describe('Rendering an <TransactionDialog /> to show the details of an unconfirmed BTC Transaction', () => {
+    describe('When rendering an <TransactionDialog /> to show the details of a unconfirmed BTC Transaction', () => {
+      beforeEach(async () => {
+        apiMock.onGet(`/transactions/${entityID}`).reply(200, {
+          data: {
+            id: entityID,
+            size: 1,
+            fees: 2,
+            btc_input: 3,
+            btc_output: 4,
+            confirmed: false,
+            confirmations: null,
+            received_time: null
+          }
+        })
+
+        renderComponent({ entityID })
+
+        await waitForElementToBeRemoved(() => {
+          return screen.queryByText('Retrieving Data...')
+        })
+      })
+
+      it('should make the expected HTTP Request', () => {
+        const getCalls = apiMock.history.get
+
+        expect(getCalls).toHaveLength(1)
+        expect(getCalls[0].url).toBe(`/transactions/${entityID}`)
+      })
+
+      it('should display the BTC Transaction details accordingly', () => {
+        expect(screen.getByLabelText('Size')).toHaveTextContent(1)
+        expect(screen.getByLabelText('ID')).toHaveTextContent(entityID)
+        expect(screen.getByLabelText('Status')).toHaveTextContent('UNCONFIRMED')
+
+        expect(screen.getByLabelText('BTC Input')).toHaveTextContent(
+          'BTC-symbol3.0000'
+        )
+        expect(screen.getByLabelText('BTC Output')).toHaveTextContent(
+          'BTC-symbol4.0000'
+        )
+        expect(screen.getByLabelText('Fees')).toHaveTextContent(
+          'BTC-symbol2.0000'
+        )
+      })
+
+      it('should not display the fields related to confirmed transactions', () => {
+        expect(screen.queryByLabelText('Received Time')).not.toBeInTheDocument()
+
+        expect(screen.queryByLabelText('Confirmations')).not.toBeInTheDocument()
       })
     })
   })
@@ -134,7 +197,7 @@ describe('<TransactionDialog /> Unit Tests', () => {
         expect(getCalls[0].url).toBe(`/transactions/${entityID}`)
       })
 
-      it('should inform the user that the BTC transaction was not found', () => {
+      it('should inform the user about the error', () => {
         expect(
           screen.getByText('An error occured, please try again')
         ).toBeInTheDocument()
@@ -162,8 +225,7 @@ describe('<TransactionDialog /> Unit Tests', () => {
           }
         })
 
-        const info = renderComponent({ entityID })
-        onClose = info.onClose
+        onClose = renderComponent({ entityID }).onClose
 
         await waitForElementToBeRemoved(() => {
           return screen.queryByText('Retrieving Data...')

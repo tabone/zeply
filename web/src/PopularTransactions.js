@@ -10,6 +10,8 @@ import {
   operations as popularTransactionsOperations
 } from './store/popular-transactions'
 
+import entityTypes from './data/entity-types'
+
 function PopularTransactions() {
   const dispatch = useDispatch()
   const [isLoading, setLoading] = React.useState(true)
@@ -22,18 +24,12 @@ function PopularTransactions() {
         console.error(err)
         enqueueSnackbar(
           'An error occured while retrieving the popular transactions',
-          {
-            variant: 'error'
-          }
+          { variant: 'error' }
         )
       })
-      .then(() => {
-        setLoading(false)
-      })
+      .then(() => setLoading(false))
 
-    return () => {
-      dispatch(popularTransactionsActions.remove())
-    }
+    return () => dispatch(popularTransactionsActions.remove())
   }, [dispatch])
 
   const transactions = useSelector(({ popularTransactions }) => {
@@ -61,8 +57,8 @@ function PopularTransactions() {
     <PopularEntities
       records={records}
       loading={isLoading}
-      entityType="transaction"
       title="Popular Transactions"
+      entityType={entityTypes.TRANSACTION}
     />
   )
 }

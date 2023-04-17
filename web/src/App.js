@@ -82,10 +82,7 @@ function App() {
       }
     ].forEach(({ key, setter }) => {
       const subscriptions = window.localStorage.getItem(key)
-
-      if (subscriptions != null) {
-        setter(new Set(subscriptions.split(',')))
-      }
+      if (subscriptions != null) setter(new Set(subscriptions.split(',')))
     })
   }, [])
 
@@ -138,9 +135,7 @@ function App() {
       })
       .then(() => setLoading(false))
 
-    return () => {
-      dispatch(ratesActions.remove())
-    }
+    return () => dispatch(ratesActions.remove())
   }, [dispatch])
 
   const onCloseEntityDialog = React.useCallback(() => {
